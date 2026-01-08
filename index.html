@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reflecta | Tables Infini Premium</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            black: '#0a0a0a',     /* Noir plus profond */
+                            dark: '#141414',      /* Gris très sombre (Onyx) */
+                            input: '#1f1f1f',
+                            gold: '#D4AF37',      /* OR CLASSIQUE (Luxe) */
+                            goldlight: '#F3E5AB', /* Or très clair pour les textes */
+                            accent: '#ffffff',    /* Blanc pur pour le contraste */
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Inter"', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'glow': '0 0 20px rgba(212, 175, 55, 0.15)', /* Lueur dorée subtile */
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { background-color: #0a0a0a; color: #f5f5f5; overflow-x: hidden; }
+        .fade-in { animation: fadeIn 0.8s cubic-bezier(0.22, 1, 0.36, 1); }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .form-input {
+            width: 100%;
+            background-color: #1f1f1f;
+            border: 1px solid #333;
+            padding: 14px;
+            border-radius: 2px; /* Coins plus carrés pour faire "Luxe" */
+            color: white;
+            outline: none;
+            transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
+        }
+        .form-input:focus { border-color: #D4AF37; box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.2); }
+        
+        .loader {
+            border: 2px solid #1a1a1a; border-top: 2px solid #D4AF37; border-radius: 50%;
+            width: 18px; height: 18px; animation: spin 1s linear infinite; display: inline-block; vertical-align: middle;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        .thumb-active { border-color: #D4AF37 !important; opacity: 1 !important; transform: scale(0.95); }
+        
+        /* Bouton Luxe */
+        .btn-gold {
+            background: linear-gradient(135deg, #D4AF37 0%, #C5A028 100%);
+            color: black;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            transition: all 0.4s ease;
+        }
+        .btn-gold:hover {
+            background: linear-gradient(135deg, #F3E5AB 0%, #D4AF37 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -10px rgba(212, 175, 55, 0.5);
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col font-sans">
+
+    <nav class="w-full py-5 px-6 md:px-12 flex justify-between items-center bg-brand-black/95 backdrop-blur-md sticky top-0 z-50 border-b border-white/5">
+        <div class="flex items-center gap-3 cursor-pointer group" onclick="app.showHome()">
+            <img src="C:\Users\yassi\Downloads\SITEWEB\yass.png" alt="Reflecta Logo" class="h-12 w-12 object-contain rounded-sm border border-brand-gold/30 group-hover:border-brand-gold transition-colors">
+            <span class="text-2xl font-serif tracking-widest text-white group-hover:text-brand-gold transition-colors">REFLECTA</span>
+        </div>
+        <div class="hidden md:flex gap-8 text-xs font-semibold tracking-[0.2em] text-gray-400">
+            <a href="#" onclick="app.showHome()" class="hover:text-brand-gold transition-colors">COLLECTION</a>
+            <a href="#features" class="hover:text-brand-gold transition-colors">SAVOIR-FAIRE</a>
+        </div>
+    </nav>
+
+    <main id="app-container" class="flex-grow relative">
+        
+        <div id="home-view" class="fade-in">
+            <section class="relative py-24 md:py-36 text-center px-4 overflow-hidden">
+                <div class="absolute inset-0 z-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-brand-gold via-brand-black to-brand-black"></div>
+                
+                <div class="relative z-10 max-w-5xl mx-auto">
+                    <div class="flex justify-center items-center gap-6 mb-6 opacity-80">
+                        <div class="h-[1px] w-12 bg-brand-gold"></div>
+                        <span class="text-brand-gold text-xs tracking-[0.4em] uppercase">L'Art de l'Infini</span>
+                        <div class="h-[1px] w-12 bg-brand-gold"></div>
+                    </div>
+                    
+                    <h1 class="text-5xl md:text-8xl font-serif font-medium tracking-tight text-white uppercase mb-8">
+                        REFLECTA <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-gold to-brand-goldlight italic">Luxe</span>
+                    </h1>
+                    
+                    <p class="text-sm md:text-base font-light text-gray-400 mb-10 max-w-xl mx-auto leading-relaxed">
+                        Une fusion audacieuse entre design contemporain et illusion d'optique. 
+                        Illuminez votre intérieur avec une pièce maîtresse unique.
+                    </p>
+                    
+                    <div class="my-12 mx-auto max-w-3xl shadow-glow border border-white/10 rounded-sm overflow-hidden group cursor-pointer">
+                        <img src="C:\Users\yassi\Downloads\SITEWEB\main.png" alt="Table Infini Hero" class="w-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition duration-1000 ease-in-out">
+                    </div>
+                    
+                    <button onclick="document.getElementById('collection').scrollIntoView({behavior: 'smooth'})" class="animate-bounce mt-4 text-brand-gold">
+                        <i data-lucide="chevron-down" class="w-8 h-8 opacity-50"></i>
+                    </button>
+                </div>
+            </section>
+
+            <section id="collection" class="py-20 px-6 md:px-12 bg-brand-dark">
+                <div class="max-w-7xl mx-auto">
+                    <h2 class="text-3xl md:text-5xl font-serif mb-20 text-center text-white">Notre Collection Exclusive</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+                        
+                        <div class="group bg-brand-black border border-white/5 hover:border-brand-gold/30 transition-all duration-500 hover:shadow-glow">
+                            <div class="overflow-hidden h-96 w-full relative">
+                                <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-all z-10"></div>
+                                <img src="C:\Users\yassi\Downloads\SITEWEB\carre.png" class="h-full w-full object-cover transform group-hover:scale-110 transition duration-700">
+                            </div>
+                            <div class="p-8 text-center">
+                                <h3 class="text-2xl font-serif mb-2 text-white">Le Carré Infini</h3>
+                                <p class="text-gray-500 text-xs tracking-widest uppercase mb-6">Édition 50x50 cm</p>
+                                <div class="flex items-center justify-center gap-4 mb-8">
+                                    <span class="text-brand-gold font-serif text-2xl">189 DTN</span>
+                                </div>
+                                <button onclick="app.showProduct('square')" class="btn-gold w-full py-4 text-xs uppercase tracking-[0.2em]">
+                                    Commander
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="group bg-brand-black border border-white/5 hover:border-brand-gold/30 transition-all duration-500 hover:shadow-glow">
+                            <div class="overflow-hidden h-96 w-full relative">
+                                <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-all z-10"></div>
+                                <img src="C:\Users\yassi\Downloads\SITEWEB\rectangle.png" class="h-full w-full object-cover transform group-hover:scale-110 transition duration-700">
+                            </div>
+                            <div class="p-8 text-center">
+                                <h3 class="text-2xl font-serif mb-2 text-white">Le Rectangle Infini</h3>
+                                <p class="text-gray-500 text-xs tracking-widest uppercase mb-6">Édition 60x30 cm</p>
+                                <div class="flex items-center justify-center gap-4 mb-8">
+                                    <span class="text-brand-gold font-serif text-2xl">219 DTN</span>
+                                </div>
+                                <button onclick="app.showProduct('rect')" class="btn-gold w-full py-4 text-xs uppercase tracking-[0.2em]">
+                                    Commander
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <section id="features" class="py-24 px-6 border-t border-white/5 bg-[#0d0d0d] relative overflow-hidden">
+                 <div class="absolute top-0 left-1/2 -translate-x-1/2 -mt-32 w-96 h-96 bg-brand-gold/5 rounded-full blur-[100px]"></div>
+                 
+                <div class="max-w-7xl mx-auto relative z-10">
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl md:text-4xl font-serif text-white mb-4">L'Excellence Reflecta</h2>
+                        <div class="w-24 h-[1px] bg-brand-gold mx-auto"></div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-20 gap-y-16">
+                        <div class="flex gap-6 group">
+                            <div class="flex-shrink-0 mt-1 p-3 bg-white/5 rounded-full h-fit group-hover:bg-brand-gold/20 transition-colors">
+                                <i data-lucide="award" class="text-brand-gold w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-serif text-white mb-3">Artisanat Premium</h3>
+                                <p class="text-gray-400 text-sm leading-7">Assemblées minutieusement à la main. Nous utilisons des miroirs de haute qualité et une structure renforcée pour une longévité exceptionnelle.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-6 group">
+                            <div class="flex-shrink-0 mt-1 p-3 bg-white/5 rounded-full h-fit group-hover:bg-brand-gold/20 transition-colors">
+                                <i data-lucide="zap" class="text-brand-gold w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-serif text-white mb-3">Technologie LED Master</h3>
+                                <p class="text-gray-400 text-sm leading-7">Système d'illumination double face basse consommation. Crée une ambiance feutrée et hypnotique sans surchauffer.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-6 group">
+                            <div class="flex-shrink-0 mt-1 p-3 bg-white/5 rounded-full h-fit group-hover:bg-brand-gold/20 transition-colors">
+                                <i data-lucide="layers" class="text-brand-gold w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-serif text-white mb-3">Esthétique Minimaliste</h3>
+                                <p class="text-gray-400 text-sm leading-7">Un cadre noir mat élégant qui s'efface pour laisser place à la lumière. S'intègre parfaitement dans les intérieurs modernes.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-6 group">
+                            <div class="flex-shrink-0 mt-1 p-3 bg-white/5 rounded-full h-fit group-hover:bg-brand-gold/20 transition-colors">
+                                <i data-lucide="eye" class="text-brand-gold w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-serif text-white mb-3">Profondeur Infinie</h3>
+                                <p class="text-gray-400 text-sm leading-7">L'illusion d'optique parfaite. Un tunnel de lumière captivant qui fascine vos invités et agrandit visuellement l'espace.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div id="product-view" class="hidden fade-in min-h-screen bg-brand-dark pb-20">
+            <div class="max-w-7xl mx-auto px-6 py-10">
+                <button onclick="app.showHome()" class="flex items-center gap-2 text-xs font-bold text-gray-500 hover:text-brand-gold mb-10 transition-colors tracking-widest">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i> RETOUR COLLECTION
+                </button>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                    
+                    <div class="lg:col-span-7">
+                        <div class="aspect-square w-full rounded-sm border border-white/5 shadow-2xl mb-4 overflow-hidden bg-brand-black relative group">
+                            <img id="detail-main-image" src="" class="w-full h-full object-cover transition-opacity duration-300">
+                            <div class="absolute top-4 right-4 bg-brand-gold text-black text-[10px] font-bold px-3 py-1 uppercase tracking-widest">Premium Quality</div>
+                        </div>
+                        
+                        <div id="thumbnails-container" class="grid grid-cols-6 gap-3">
+                            </div>
+
+                        <div class="bg-brand-black p-8 rounded-sm border border-white/5 mt-8">
+                            <h3 class="text-lg font-serif mb-4 text-white border-b border-white/10 pb-2">Description du Produit</h3>
+                            <h2 id="detail-title" class="text-2xl text-brand-gold mb-4 font-serif"></h2>
+                            <p id="detail-desc" class="text-sm text-gray-400 leading-relaxed mb-8 font-light"></p>
+
+                            <h3 class="text-lg font-serif mb-6 text-white border-b border-white/10 pb-2">Spécifications Techniques</h3>
+                            <ul class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <li class="flex items-center gap-3 bg-white/5 p-3 rounded-sm">
+                                    <i data-lucide="zap" class="text-brand-gold w-4 h-4"></i>
+                                    <span class="text-xs text-gray-300">LED Haute Intensité</span>
+                                </li>
+                                <li class="flex items-center gap-3 bg-white/5 p-3 rounded-sm">
+                                    <i data-lucide="shield-check" class="text-brand-gold w-4 h-4"></i>
+                                    <span class="text-xs text-gray-300">Garantie Qualité</span>
+                                </li>
+                                <li class="flex items-center gap-3 bg-white/5 p-3 rounded-sm">
+                                    <i data-lucide="box" class="text-brand-gold w-4 h-4"></i>
+                                    <span class="text-xs text-gray-300">Emballage Sécurisé</span>
+                                </li>
+                                <li class="flex items-center gap-3 bg-white/5 p-3 rounded-sm">
+                                    <i data-lucide="truck" class="text-brand-gold w-4 h-4"></i>
+                                    <span class="text-xs text-gray-300">Livraison Rapide</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-5">
+                        <div class="bg-brand-black p-8 rounded-sm border border-brand-gold/20 shadow-glow h-fit sticky top-24">
+                            <div class="text-center mb-6">
+                                <h2 class="text-2xl font-serif text-white">Finaliser la Commande</h2>
+                                <p class="text-xs text-gray-500 mt-2">Remplissez le formulaire ci-dessous. Paiement à la livraison.</p>
+                            </div>
+                            
+                            <form id="order-form" onsubmit="app.submitOrder(event)" class="space-y-5">
+                                <input type="hidden" id="product-name" name="product_name">
+                                <input type="hidden" id="final-price" name="final_price">
+
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="text-[10px] text-brand-gold uppercase tracking-widest mb-1 block">Nom</label>
+                                        <input type="text" name="nom" required class="form-input" placeholder="Votre nom">
+                                    </div>
+                                    <div>
+                                        <label class="text-[10px] text-brand-gold uppercase tracking-widest mb-1 block">Prénom</label>
+                                        <input type="text" name="prenom" required class="form-input" placeholder="Votre prénom">
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="text-[10px] text-brand-gold uppercase tracking-widest mb-1 block">Téléphone</label>
+                                    <input type="tel" name="telephone" required class="form-input" placeholder="Numéro joignable (+216...)">
+                                </div>
+
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="text-[10px] text-brand-gold uppercase tracking-widest mb-1 block">Ville</label>
+                                        <input type="text" name="ville" required class="form-input" placeholder="Ville">
+                                    </div>
+                                    <div>
+                                        <label class="text-[10px] text-brand-gold uppercase tracking-widest mb-1 block">Code Postal</label>
+                                        <input type="text" name="zip" required class="form-input" placeholder="Code">
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="text-[10px] text-brand-gold uppercase tracking-widest mb-1 block">Adresse de Livraison</label>
+                                    <textarea name="adresse" required class="form-input h-24 resize-none" placeholder="Adresse complète..."></textarea>
+                                </div>
+
+                                <div class="bg-[#151515] p-5 rounded-sm border border-white/5 mt-4">
+                                    <div class="flex justify-between text-sm text-gray-400 mb-2">
+                                        <span>Produit</span>
+                                        <span id="summary-price" class="text-white">0 DTN</span>
+                                    </div>
+                                    <div class="flex justify-between text-sm text-gray-400 mb-3">
+                                        <span>Livraison Sécurisée</span>
+                                        <span class="text-brand-gold">+ 7.00 DTN</span>
+                                    </div>
+                                    <div class="border-t border-white/10 pt-3 flex justify-between items-end">
+                                        <span class="text-sm font-serif text-white">Total à Payer</span>
+                                        <span id="summary-total" class="text-2xl font-serif text-brand-gold">0 DTN</span>
+                                    </div>
+                                </div>
+
+                                <button type="submit" id="submit-btn" class="btn-gold w-full py-4 text-sm mt-2 shadow-lg rounded-sm">
+                                    CONFIRMER MA COMMANDE
+                                </button>
+                                
+                                <p class="text-[10px] text-center text-gray-600 flex justify-center gap-2 items-center mt-2">
+                                    <i data-lucide="lock" class="w-3 h-3"></i> Informations cryptées et sécurisées
+                                </p>
+                            </form>
+                            
+                            <div id="success-message" class="hidden text-center py-10">
+                                <div class="w-20 h-20 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-6 border border-green-500/30">
+                                    <i data-lucide="check" class="text-green-500 w-10 h-10"></i>
+                                </div>
+                                <h3 class="text-2xl font-serif text-white mb-2">Félicitations !</h3>
+                                <p class="text-gray-400 text-sm mb-6">Votre commande a été enregistrée avec succès.<br>Notre service client vous contactera sous 24h.</p>
+                                <button onclick="app.showHome()" class="text-brand-gold underline text-xs tracking-widest hover:text-white transition">RETOUR À L'ACCUEIL</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="bg-black py-10 border-t border-white/5 text-center mt-auto">
+        <div class="flex justify-center items-center gap-2 mb-4 opacity-50">
+            <img src="C:\Users\yassi\Downloads\SITEWEB\yass.png" class="h-6 grayscale">
+            <span class="text-sm font-serif text-white tracking-widest">REFLECTA</span>
+        </div>
+        <p class="text-gray-700 text-xs">© 2026 Reflecta Design. Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        // ⚠️ REMPLACEZ PAR VOTRE URL GOOGLE APPS SCRIPT
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzGNAPF0QjUdXXRuPvqb0I0_e8rKUwigQIqb3j12lCH8wm96MY-LZGmCQq7sQv7hVQ/exec"; 
+
+        const products = {
+            'square': { 
+                title: "Table Infini Carrée", 
+                price: 189, 
+                images: [
+                    "C:\\Users\\yassi\\Downloads\\SITEWEB\\carre.png",
+                    "C:\\Users\\yassi\\Downloads\\SITEWEB\\carre.png",
+                    "C:\\Users\\yassi\\Downloads\\SITEWEB\\carre.png",
+                    "C:\\Users\\yassi\\Downloads\\SITEWEB\\carre.png",
+                    "C:\\Users\\yassi\\Downloads\\SITEWEB\\carre.png",
+                    "C:\\Users\\yassi\\Downloads\\SITEWEB\\carre.png"
+                ],
+                desc: "L'apothéose du design intérieur moderne. Cette table carrée de 50x50 cm est une véritable œuvre d'art lumineuse. Son système LED crée une profondeur abyssale captivante, transformant votre salon en une galerie d'art contemporain." 
+            },
+            'rect': { 
+                title: "Table Infini Rectangulaire", 
+                price: 219, 
+                images: [
+                    "C:\\Users\\yassi\\Downloads\\SITEWEB\\rectangle.png",
+                    "C:\\Users\\yassi\\Downloads\\SITEWEB\\rectangle.png",
+                    "C:\\Users\\yassi\\Downloads\\SITEWEB\\rectangle.png",
+                    "C:\\Users\\yassi\\Downloads\\SITEWEB\\rectangle.png",
+                    "C:\\Users\\yassi\\Downloads\\SITEWEB\\rectangle.png",
+                    "C:\\Users\\yassi\\Downloads\\SITEWEB\\rectangle.png"
+                ], 
+                desc: "Une élégance architecturale allongée. Avec ses dimensions de 60x30 cm, ce modèle offre une vue panoramique sur l'infini. Idéale comme table d'appoint ou console, elle apporte une touche de magie sophistiquée à votre espace." 
+            }
+        };
+
+        const app = {
+            homeView: document.getElementById('home-view'),
+            productView: document.getElementById('product-view'),
+            successMessage: document.getElementById('success-message'),
+            form: document.getElementById('order-form'),
+
+            showHome: function() {
+                window.scrollTo(0, 0);
+                this.productView.classList.add('hidden');
+                this.homeView.classList.remove('hidden');
+            },
+
+            showProduct: function(id) {
+                const p = products[id];
+                const shipping = 7;
+                const total = p.price + shipping;
+
+                // Mise à jour textes
+                document.getElementById('detail-title').innerText = p.title;
+                document.getElementById('detail-desc').innerText = p.desc;
+                document.getElementById('summary-price').innerText = p.price + ".00 DTN";
+                document.getElementById('summary-total').innerText = total + ".00 DTN";
+
+                // --- LOGIQUE GALERIE ---
+                const mainImage = document.getElementById('detail-main-image');
+                mainImage.src = p.images[0];
+                const thumbsContainer = document.getElementById('thumbnails-container');
+                thumbsContainer.innerHTML = ''; 
+
+                p.images.forEach((imgSrc, index) => {
+                    const thumb = document.createElement('img');
+                    thumb.src = imgSrc;
+                    thumb.className = `w-full h-16 object-cover rounded-sm cursor-pointer border border-white/10 hover:border-brand-gold transition-all ${index === 0 ? 'thumb-active' : ''}`;
+                    thumb.onclick = function() {
+                        // Fade effect
+                        mainImage.style.opacity = '0.5';
+                        setTimeout(() => {
+                            mainImage.src = imgSrc;
+                            mainImage.style.opacity = '1';
+                        }, 200);
+                        
+                        Array.from(thumbsContainer.children).forEach(c => c.classList.remove('thumb-active'));
+                        thumb.classList.add('thumb-active');
+                    };
+                    thumbsContainer.appendChild(thumb);
+                });
+
+                document.getElementById('product-name').value = p.title;
+                document.getElementById('final-price').value = total + " DTN";
+
+                this.form.reset();
+                this.form.classList.remove('hidden');
+                this.successMessage.classList.add('hidden');
+
+                this.homeView.classList.add('hidden');
+                this.productView.classList.remove('hidden');
+                window.scrollTo(0, 0);
+
+                setTimeout(() => lucide.createIcons(), 50);
+            },
+
+            submitOrder: function(e) {
+                e.preventDefault();
+                const btn = document.getElementById('submit-btn');
+                const originalText = btn.innerText;
+                btn.innerHTML = '<span class="loader"></span> TRAITEMENT EN COURS...';
+                btn.disabled = true;
+
+                const formData = new FormData(this.form);
+                fetch(GOOGLE_SCRIPT_URL, { method: 'POST', body: formData })
+                .then(response => {
+                    this.form.classList.add('hidden');
+                    this.successMessage.classList.remove('hidden');
+                    // Scroll vers le message de succès
+                    this.successMessage.scrollIntoView({behavior: 'smooth'});
+                })
+                .catch(error => {
+                    alert("Une erreur est survenue. Veuillez vérifier votre connexion.");
+                    btn.innerText = originalText;
+                    btn.disabled = false;
+                });
+            }
+        };
+    </script>
+</body>
+</html>
