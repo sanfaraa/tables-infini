@@ -17,12 +17,12 @@
                 extend: {
                     colors: {
                         brand: {
-                            black: '#0a0a0a',     /* Noir plus profond */
-                            dark: '#141414',      /* Gris très sombre (Onyx) */
+                            black: '#0a0a0a',     
+                            dark: '#141414',      
                             input: '#1f1f1f',
-                            gold: '#D4AF37',      /* OR CLASSIQUE (Luxe) */
-                            goldlight: '#F3E5AB', /* Or très clair pour les textes */
-                            accent: '#ffffff',    /* Blanc pur pour le contraste */
+                            gold: '#D4AF37',       /* OR CLASSIQUE */
+                            goldlight: '#F3E5AB',  /* Or très clair */
+                            accent: '#ffffff',    
                         }
                     },
                     fontFamily: {
@@ -30,7 +30,7 @@
                         sans: ['"Inter"', 'sans-serif'],
                     },
                     boxShadow: {
-                        'glow': '0 0 20px rgba(212, 175, 55, 0.15)', /* Lueur dorée subtile */
+                        'glow': '0 0 20px rgba(212, 175, 55, 0.15)',
                     }
                 }
             }
@@ -47,7 +47,7 @@
             background-color: #1f1f1f;
             border: 1px solid #333;
             padding: 14px;
-            border-radius: 2px; /* Coins plus carrés pour faire "Luxe" */
+            border-radius: 2px;
             color: white;
             outline: none;
             transition: all 0.3s;
@@ -70,6 +70,10 @@
             font-weight: 600;
             letter-spacing: 0.1em;
             transition: all 0.4s ease;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .btn-gold:hover {
             background: linear-gradient(135deg, #F3E5AB 0%, #D4AF37 100%);
@@ -129,37 +133,53 @@
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
                         
-                        <div class="group bg-brand-black border border-white/5 hover:border-brand-gold/30 transition-all duration-500 hover:shadow-glow">
+                        <div onclick="app.showProduct('square')" 
+                             onmouseenter="app.startSlide('square', 'img-preview-square')" 
+                             onmouseleave="app.stopSlide('square', 'img-preview-square')"
+                             class="group bg-brand-black border border-white/5 cursor-pointer hover:border-brand-gold/50 transition-all duration-500 hover:shadow-glow relative">
+                            
                             <div class="overflow-hidden h-96 w-full relative">
-                                <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-all z-10"></div>
-                                <img src="carre.png" class="h-full w-full object-cover transform group-hover:scale-110 transition duration-700">
+                                <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-all z-10"></div>
+                                <img id="img-preview-square" src="carre.png" class="h-full w-full object-cover transition duration-500">
+                                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 z-20">
+                                    <span class="bg-black/80 text-brand-gold border border-brand-gold px-6 py-2 uppercase tracking-widest text-xs backdrop-blur-sm">Découvrir</span>
+                                </div>
                             </div>
-                            <div class="p-8 text-center">
-                                <h3 class="text-2xl font-serif mb-2 text-white">Le Carré Infini</h3>
+                            
+                            <div class="p-8 text-center bg-brand-black relative z-20">
+                                <h3 class="text-2xl font-serif mb-2 text-white group-hover:text-brand-gold transition-colors">Le Carré Infini</h3>
                                 <p class="text-gray-500 text-xs tracking-widest uppercase mb-6">Édition 50x50 cm</p>
                                 <div class="flex items-center justify-center gap-4 mb-8">
                                     <span class="text-brand-gold font-serif text-2xl">189 DTN</span>
                                 </div>
-                                <button onclick="app.showProduct('square')" class="btn-gold w-full py-4 text-xs uppercase tracking-[0.2em]">
+                                <div class="btn-gold w-full py-4 text-xs uppercase tracking-[0.2em]">
                                     Commander
-                                </button>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="group bg-brand-black border border-white/5 hover:border-brand-gold/30 transition-all duration-500 hover:shadow-glow">
+                        <div onclick="app.showProduct('rect')" 
+                             onmouseenter="app.startSlide('rect', 'img-preview-rect')" 
+                             onmouseleave="app.stopSlide('rect', 'img-preview-rect')"
+                             class="group bg-brand-black border border-white/5 cursor-pointer hover:border-brand-gold/50 transition-all duration-500 hover:shadow-glow relative">
+                            
                             <div class="overflow-hidden h-96 w-full relative">
-                                <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-all z-10"></div>
-                                <img src="rectangle.png" class="h-full w-full object-cover transform group-hover:scale-110 transition duration-700">
+                                <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-all z-10"></div>
+                                <img id="img-preview-rect" src="rectangle.png" class="h-full w-full object-cover transition duration-500">
+                                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 z-20">
+                                    <span class="bg-black/80 text-brand-gold border border-brand-gold px-6 py-2 uppercase tracking-widest text-xs backdrop-blur-sm">Découvrir</span>
+                                </div>
                             </div>
-                            <div class="p-8 text-center">
-                                <h3 class="text-2xl font-serif mb-2 text-white">Le Rectangle Infini</h3>
+                            
+                            <div class="p-8 text-center bg-brand-black relative z-20">
+                                <h3 class="text-2xl font-serif mb-2 text-white group-hover:text-brand-gold transition-colors">Le Rectangle Infini</h3>
                                 <p class="text-gray-500 text-xs tracking-widest uppercase mb-6">Édition 60x30 cm</p>
                                 <div class="flex items-center justify-center gap-4 mb-8">
                                     <span class="text-brand-gold font-serif text-2xl">219 DTN</span>
                                 </div>
-                                <button onclick="app.showProduct('rect')" class="btn-gold w-full py-4 text-xs uppercase tracking-[0.2em]">
+                                <div class="btn-gold w-full py-4 text-xs uppercase tracking-[0.2em]">
                                     Commander
-                                </button>
+                                </div>
                             </div>
                         </div>
 
@@ -350,7 +370,7 @@
 
     <footer class="bg-black py-10 border-t border-white/5 text-center mt-auto">
         <div class="flex justify-center items-center gap-2 mb-4 opacity-50">
-            <img src="C:\Users\yassi\Downloads\SITEWEB\yass.png" class="h-6 grayscale">
+            <img src="yass.png" class="h-6 grayscale">
             <span class="text-sm font-serif text-white tracking-widest">REFLECTA</span>
         </div>
         <p class="text-gray-700 text-xs">© 2026 Reflecta Design. Tous droits réservés.</p>
@@ -366,12 +386,10 @@
             'square': { 
                 title: "Table Infini Carrée", 
                 price: 189, 
+                // Images dupliquées pour simuler un diaporama si vous n'avez qu'une seule image par produit
                 images: [
                     "carre.png",
-                    "carre.png",
-                    "carre.png",
-                    "carre.png",
-                    "carre.png",
+                    "carre.png", // Idéalement, mettez d'autres vues ici (ex: carre-2.png)
                     "carre.png"
                 ],
                 desc: "L'apothéose du design intérieur moderne. Cette table carrée de 50x50 cm est une véritable œuvre d'art lumineuse. Son système LED crée une profondeur abyssale captivante, transformant votre salon en une galerie d'art contemporain." 
@@ -381,10 +399,7 @@
                 price: 219, 
                 images: [
                     "rectangle.png",
-                    "rectangle.png",
-                    "rectangle.png",
-                    "rectangle.png",
-                    "rectangle.png",
+                    "rectangle.png", // Idem
                     "rectangle.png"
                 ], 
                 desc: "Une élégance architecturale allongée. Avec ses dimensions de 60x30 cm, ce modèle offre une vue panoramique sur l'infini. Idéale comme table d'appoint ou console, elle apporte une touche de magie sophistiquée à votre espace." 
@@ -396,6 +411,33 @@
             productView: document.getElementById('product-view'),
             successMessage: document.getElementById('success-message'),
             form: document.getElementById('order-form'),
+            intervals: {},
+
+            // --- FONCTIONS DIAPORAMA ---
+            startSlide: function(productId, imgId) {
+                if (this.intervals[productId]) clearInterval(this.intervals[productId]);
+                
+                const imgTag = document.getElementById(imgId);
+                const images = products[productId].images;
+                let i = 0;
+
+                // Change l'image toutes les 800ms
+                this.intervals[productId] = setInterval(() => {
+                    i = (i + 1) % images.length;
+                    imgTag.src = images[i];
+                }, 800); 
+            },
+
+            stopSlide: function(productId, imgId) {
+                if (this.intervals[productId]) {
+                    clearInterval(this.intervals[productId]);
+                    this.intervals[productId] = null;
+                }
+                const imgTag = document.getElementById(imgId);
+                // Remet la première image
+                imgTag.src = products[productId].images[0];
+            },
+            // ---------------------------
 
             showHome: function() {
                 window.scrollTo(0, 0);
@@ -404,17 +446,21 @@
             },
 
             showProduct: function(id) {
+                // Stop les diaporamas pour éviter les bugs en background
+                this.stopSlide('square', 'img-preview-square');
+                this.stopSlide('rect', 'img-preview-rect');
+
                 const p = products[id];
                 const shipping = 7;
                 const total = p.price + shipping;
 
-                // Mise à jour textes
+                // Mises à jour texte
                 document.getElementById('detail-title').innerText = p.title;
                 document.getElementById('detail-desc').innerText = p.desc;
                 document.getElementById('summary-price').innerText = p.price + ".00 DTN";
                 document.getElementById('summary-total').innerText = total + ".00 DTN";
 
-                // --- LOGIQUE GALERIE ---
+                // Gestion Galerie Détail
                 const mainImage = document.getElementById('detail-main-image');
                 mainImage.src = p.images[0];
                 const thumbsContainer = document.getElementById('thumbnails-container');
@@ -425,7 +471,6 @@
                     thumb.src = imgSrc;
                     thumb.className = `w-full h-16 object-cover rounded-sm cursor-pointer border border-white/10 hover:border-brand-gold transition-all ${index === 0 ? 'thumb-active' : ''}`;
                     thumb.onclick = function() {
-                        // Fade effect
                         mainImage.style.opacity = '0.5';
                         setTimeout(() => {
                             mainImage.src = imgSrc;
@@ -456,7 +501,7 @@
                 e.preventDefault();
                 const btn = document.getElementById('submit-btn');
                 const originalText = btn.innerText;
-                btn.innerHTML = '<span class="loader"></span> TRAITEMENT EN COURS...';
+                btn.innerHTML = '<span class="loader"></span> TRAITEMENT...';
                 btn.disabled = true;
 
                 const formData = new FormData(this.form);
@@ -464,7 +509,6 @@
                 .then(response => {
                     this.form.classList.add('hidden');
                     this.successMessage.classList.remove('hidden');
-                    // Scroll vers le message de succès
                     this.successMessage.scrollIntoView({behavior: 'smooth'});
                 })
                 .catch(error => {
