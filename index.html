@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reflecta | Tables Infini Premium</title>
-    <link rel="icon" type="png" href="yass.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -17,229 +16,56 @@
                 extend: {
                     colors: {
                         brand: {
-                            black: '#0a0a0a',     
-                            dark: '#141414',      
-                            input: '#1f1f1f',
-                            gold: '#D4AF37',       /* OR CLASSIQUE */
-                            goldlight: '#F3E5AB',  /* Or très clair */
-                            accent: '#ffffff',    
+                            black: '#0a0a0a', dark: '#141414', input: '#1f1f1f',
+                            gold: '#D4AF37', goldlight: '#F3E5AB', accent: '#ffffff',
                         }
                     },
-                    fontFamily: {
-                        serif: ['"Playfair Display"', 'serif'],
-                        sans: ['"Inter"', 'sans-serif'],
-                    },
-                    boxShadow: {
-                        'glow': '0 0 20px rgba(212, 175, 55, 0.15)',
-                    }
+                    fontFamily: { serif: ['"Playfair Display"', 'serif'], sans: ['"Inter"', 'sans-serif'] },
+                    boxShadow: { 'glow': '0 0 20px rgba(212, 175, 55, 0.15)' }
                 }
             }
         }
     </script>
-
     <style>
         body { background-color: #0a0a0a; color: #f5f5f5; overflow-x: hidden; }
         .fade-in { animation: fadeIn 0.8s cubic-bezier(0.22, 1, 0.36, 1); }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        
-        .form-input {
-            width: 100%;
-            background-color: #1f1f1f;
-            border: 1px solid #333;
-            padding: 14px;
-            border-radius: 2px;
-            color: white;
-            outline: none;
-            transition: all 0.3s;
-            font-family: 'Inter', sans-serif;
-        }
-        .form-input:focus { border-color: #D4AF37; box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.2); }
-        
-        .loader {
-            border: 2px solid #1a1a1a; border-top: 2px solid #D4AF37; border-radius: 50%;
-            width: 18px; height: 18px; animation: spin 1s linear infinite; display: inline-block; vertical-align: middle;
-        }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        
-        .thumb-active { border-color: #D4AF37 !important; opacity: 1 !important; transform: scale(0.95); }
-        
-        /* Bouton Luxe */
-        .btn-gold {
-            background: linear-gradient(135deg, #D4AF37 0%, #C5A028 100%);
-            color: black;
-            font-weight: 600;
-            letter-spacing: 0.1em;
-            transition: all 0.4s ease;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .btn-gold:hover {
-            background: linear-gradient(135deg, #F3E5AB 0%, #D4AF37 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px -10px rgba(212, 175, 55, 0.5);
-        }
-
-        /* Classes pour les icones réseaux sociaux */
-        .social-icon { fill: currentColor; width: 20px; height: 20px; transition: all 0.3s; }
-        .social-link:hover .social-icon { fill: #D4AF37; transform: scale(1.1); }
+        .form-input { width: 100%; background-color: #1f1f1f; border: 1px solid #333; padding: 14px; border-radius: 2px; color: white; outline: none; transition: all 0.3s; font-family: 'Inter', sans-serif; }
+        .form-input:focus { border-color: #D4AF37; }
+        .btn-gold { background: linear-gradient(135deg, #D4AF37 0%, #C5A028 100%); color: black; font-weight: 600; letter-spacing: 0.1em; transition: all 0.4s ease; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .btn-gold:hover { background: linear-gradient(135deg, #F3E5AB 0%, #D4AF37 100%); transform: translateY(-2px); }
+        .admin-card { background: #141414; border: 1px solid #333; padding: 15px; border-radius: 4px; margin-bottom: 10px; }
+        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 100; display: flex; align-items: center; justify-content: center; }
+        /* Style tableau commandes */
+        .order-table { width: 100%; text-align: left; border-collapse: collapse; }
+        .order-table th { color: #D4AF37; font-size: 10px; text-transform: uppercase; padding: 10px; border-bottom: 1px solid #333; }
+        .order-table td { padding: 12px 10px; font-size: 13px; border-bottom: 1px solid #1a1a1a; color: #ccc; }
+        .tab-btn { padding: 10px 20px; color: #666; cursor: pointer; border-bottom: 2px solid transparent; }
+        .tab-btn.active { color: #D4AF37; border-bottom: 2px solid #D4AF37; }
     </style>
 </head>
 <body class="antialiased min-h-screen flex flex-col font-sans">
 
     <nav class="w-full py-5 px-6 md:px-12 flex justify-between items-center bg-brand-black/95 backdrop-blur-md sticky top-0 z-50 border-b border-white/5">
         <div class="flex items-center gap-3 cursor-pointer group" onclick="app.showHome()">
-            <img src="yass.png" alt="Reflecta Logo" class="h-12 w-12 object-contain rounded-sm border border-brand-gold/30 group-hover:border-brand-gold transition-colors">
             <span class="text-2xl font-serif tracking-widest text-white group-hover:text-brand-gold transition-colors">REFLECTA</span>
         </div>
         <div class="hidden md:flex gap-8 text-xs font-semibold tracking-[0.2em] text-gray-400">
             <a href="#" onclick="app.showHome()" class="hover:text-brand-gold transition-colors">COLLECTION</a>
-            <a href="#features" class="hover:text-brand-gold transition-colors">SAVOIR-FAIRE</a>
+            <a href="#" onclick="adminApp.toggleAdmin()" class="hover:text-red-500 transition-colors opacity-50">ADMIN</a>
         </div>
     </nav>
 
     <main id="app-container" class="flex-grow relative">
         
         <div id="home-view" class="fade-in">
-            <section class="relative py-24 md:py-36 text-center px-4 overflow-hidden">
-                <div class="absolute inset-0 z-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-brand-gold via-brand-black to-brand-black"></div>
-                
-                <div class="relative z-10 max-w-5xl mx-auto">
-                    <div class="flex justify-center items-center gap-6 mb-6 opacity-80">
-                        <div class="h-[1px] w-12 bg-brand-gold"></div>
-                        <span class="text-brand-gold text-xs tracking-[0.4em] uppercase">L'Art de l'Infini</span>
-                        <div class="h-[1px] w-12 bg-brand-gold"></div>
-                    </div>
-                    
-                    <h1 class="text-5xl md:text-8xl font-serif font-medium tracking-tight text-white uppercase mb-8">
-                        REFLECTA <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-gold to-brand-goldlight italic">Luxe</span>
-                    </h1>
-                    
-                    <p class="text-sm md:text-base font-light text-gray-400 mb-10 max-w-xl mx-auto leading-relaxed">
-                        Une fusion audacieuse entre design contemporain et illusion d'optique. 
-                        Illuminez votre intérieur avec une pièce maîtresse unique.
-                    </p>
-                    
-                    <div class="my-12 mx-auto max-w-3xl shadow-glow border border-white/10 rounded-sm overflow-hidden group cursor-pointer">
-                        <img src="main.png" alt="Table Infini Hero" class="w-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition duration-1000 ease-in-out">
-                    </div>
-                    
-                    <button onclick="document.getElementById('collection').scrollIntoView({behavior: 'smooth'})" class="animate-bounce mt-4 text-brand-gold">
-                        <i data-lucide="chevron-down" class="w-8 h-8 opacity-50"></i>
-                    </button>
-                </div>
+            <section class="py-24 text-center">
+                <h1 class="text-5xl md:text-8xl font-serif text-white uppercase mb-8">REFLECTA <span class="italic text-brand-gold">Luxe</span></h1>
             </section>
-
-            <section id="collection" class="py-20 px-6 md:px-12 bg-brand-dark">
+            <section class="py-10 px-6 md:px-12 bg-brand-dark min-h-[50vh]">
                 <div class="max-w-7xl mx-auto">
-                    <h2 class="text-3xl md:text-5xl font-serif mb-20 text-center text-white">Notre Collection Exclusive</h2>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
-                        
-                        <div onclick="app.showProduct('square')" 
-                             onmouseenter="app.startSlide('square', 'img-preview-square')" 
-                             onmouseleave="app.stopSlide('square', 'img-preview-square')"
-                             class="group bg-brand-black border border-white/5 cursor-pointer hover:border-brand-gold/50 transition-all duration-500 hover:shadow-glow relative">
-                            
-                            <div class="overflow-hidden h-96 w-full relative">
-                                <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-all z-10"></div>
-                                <img id="img-preview-square" src="img3.jpeg" class="h-full w-full object-cover transition duration-500">
-                                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 z-20">
-                                    <span class="bg-black/80 text-brand-gold border border-brand-gold px-6 py-2 uppercase tracking-widest text-xs backdrop-blur-sm">Découvrir</span>
-                                </div>
-                            </div>
-                            
-                            <div class="p-8 text-center bg-brand-black relative z-20">
-                                <h3 class="text-2xl font-serif mb-2 text-white group-hover:text-brand-gold transition-colors">Le Carré Infini</h3>
-                                <p class="text-gray-500 text-xs tracking-widest uppercase mb-6">Édition 50x50 cm</p>
-                                <div class="flex items-center justify-center gap-4 mb-8">
-                                    <span class="text-brand-gold font-serif text-2xl">189 DTN</span>
-                                </div>
-                                <div class="btn-gold w-full py-4 text-xs uppercase tracking-[0.2em]">
-                                    Commander
-                                </div>
-                            </div>
-                        </div>
-
-                        <div onclick="app.showProduct('rect')" 
-                             onmouseenter="app.startSlide('rect', 'img-preview-rect')" 
-                             onmouseleave="app.stopSlide('rect', 'img-preview-rect')"
-                             class="group bg-brand-black border border-white/5 cursor-pointer hover:border-brand-gold/50 transition-all duration-500 hover:shadow-glow relative">
-                            
-                            <div class="overflow-hidden h-96 w-full relative">
-                                <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-all z-10"></div>
-                                <img id="img-preview-rect" src="rectangle.png" class="h-full w-full object-cover transition duration-500">
-                                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500 z-20">
-                                    <span class="bg-black/80 text-brand-gold border border-brand-gold px-6 py-2 uppercase tracking-widest text-xs backdrop-blur-sm">Découvrir</span>
-                                </div>
-                            </div>
-                            
-                            <div class="p-8 text-center bg-brand-black relative z-20">
-                                <h3 class="text-2xl font-serif mb-2 text-white group-hover:text-brand-gold transition-colors">Le Rectangle Infini</h3>
-                                <p class="text-gray-500 text-xs tracking-widest uppercase mb-6">Édition 60x30 cm</p>
-                                <div class="flex items-center justify-center gap-4 mb-8">
-                                    <span class="text-brand-gold font-serif text-2xl">219 DTN</span>
-                                </div>
-                                <div class="btn-gold w-full py-4 text-xs uppercase tracking-[0.2em]">
-                                    Commander
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </section>
-
-            <section id="features" class="py-24 px-6 border-t border-white/5 bg-[#0d0d0d] relative overflow-hidden">
-                 <div class="absolute top-0 left-1/2 -translate-x-1/2 -mt-32 w-96 h-96 bg-brand-gold/5 rounded-full blur-[100px]"></div>
-                 
-                <div class="max-w-7xl mx-auto relative z-10">
-                    <div class="text-center mb-16">
-                        <h2 class="text-3xl md:text-4xl font-serif text-white mb-4">L'Excellence Reflecta</h2>
-                        <div class="w-24 h-[1px] bg-brand-gold mx-auto"></div>
-                    </div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-20 gap-y-16">
-                        <div class="flex gap-6 group">
-                            <div class="flex-shrink-0 mt-1 p-3 bg-white/5 rounded-full h-fit group-hover:bg-brand-gold/20 transition-colors">
-                                <i data-lucide="award" class="text-brand-gold w-6 h-6"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-serif text-white mb-3">Artisanat Premium</h3>
-                                <p class="text-gray-400 text-sm leading-7">Assemblées minutieusement à la main. Nous utilisons des miroirs de haute qualité et une structure renforcée pour une longévité exceptionnelle.</p>
-                            </div>
-                        </div>
-
-                        <div class="flex gap-6 group">
-                            <div class="flex-shrink-0 mt-1 p-3 bg-white/5 rounded-full h-fit group-hover:bg-brand-gold/20 transition-colors">
-                                <i data-lucide="zap" class="text-brand-gold w-6 h-6"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-serif text-white mb-3">Technologie LED Master</h3>
-                                <p class="text-gray-400 text-sm leading-7">Système d'illumination double face basse consommation. Crée une ambiance feutrée et hypnotique sans surchauffer.</p>
-                            </div>
-                        </div>
-
-                        <div class="flex gap-6 group">
-                            <div class="flex-shrink-0 mt-1 p-3 bg-white/5 rounded-full h-fit group-hover:bg-brand-gold/20 transition-colors">
-                                <i data-lucide="layers" class="text-brand-gold w-6 h-6"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-serif text-white mb-3">Esthétique Minimaliste</h3>
-                                <p class="text-gray-400 text-sm leading-7">Un cadre noir mat élégant qui s'efface pour laisser place à la lumière. S'intègre parfaitement dans les intérieurs modernes.</p>
-                            </div>
-                        </div>
-
-                        <div class="flex gap-6 group">
-                            <div class="flex-shrink-0 mt-1 p-3 bg-white/5 rounded-full h-fit group-hover:bg-brand-gold/20 transition-colors">
-                                <i data-lucide="eye" class="text-brand-gold w-6 h-6"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-serif text-white mb-3">Profondeur Infinie</h3>
-                                <p class="text-gray-400 text-sm leading-7">L'illusion d'optique parfaite. Un tunnel de lumière captivant qui fascine vos invités et agrandit visuellement l'espace.</p>
-                            </div>
-                        </div>
+                    <div id="products-grid" class="grid grid-cols-1 md:grid-cols-2 gap-16">
+                        <div class="col-span-full text-center py-20 text-gray-500">Chargement...</div>
                     </div>
                 </div>
             </section>
@@ -247,330 +73,325 @@
 
         <div id="product-view" class="hidden fade-in min-h-screen bg-brand-dark pb-20">
             <div class="max-w-7xl mx-auto px-6 py-10">
-                <button onclick="app.showHome()" class="flex items-center gap-2 text-xs font-bold text-gray-500 hover:text-brand-gold mb-10 transition-colors tracking-widest">
-                    <i data-lucide="arrow-left" class="w-4 h-4"></i> RETOUR COLLECTION
-                </button>
-
+                <button onclick="app.showHome()" class="mb-10 text-xs font-bold text-gray-500 hover:text-white flex gap-2"><i data-lucide="arrow-left" class="w-4 h-4"></i> RETOUR</button>
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
-                    
                     <div class="lg:col-span-7">
-                        <div class="aspect-square w-full rounded-sm border border-white/5 shadow-2xl mb-4 overflow-hidden bg-brand-black relative group">
-                            <img id="detail-main-image" src="" class="w-full h-full object-cover transition-opacity duration-300">
-                            <div class="absolute top-4 right-4 bg-brand-gold text-black text-[10px] font-bold px-3 py-1 uppercase tracking-widest">Premium Quality</div>
-                        </div>
-                        
-                        <div id="thumbnails-container" class="grid grid-cols-6 gap-3">
-                            </div>
-
-                        <div class="bg-brand-black p-8 rounded-sm border border-white/5 mt-8">
-                            <h3 class="text-lg font-serif mb-4 text-white border-b border-white/10 pb-2">Description du Produit</h3>
-                            <h2 id="detail-title" class="text-2xl text-brand-gold mb-4 font-serif"></h2>
-                            <p id="detail-desc" class="text-sm text-gray-400 leading-relaxed mb-8 font-light"></p>
-
-                            <h3 class="text-lg font-serif mb-6 text-white border-b border-white/10 pb-2">Spécifications Techniques</h3>
-                            <ul class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <li class="flex items-center gap-3 bg-white/5 p-3 rounded-sm">
-                                    <i data-lucide="zap" class="text-brand-gold w-4 h-4"></i>
-                                    <span class="text-xs text-gray-300">LED Haute Intensité</span>
-                                </li>
-                                <li class="flex items-center gap-3 bg-white/5 p-3 rounded-sm">
-                                    <i data-lucide="shield-check" class="text-brand-gold w-4 h-4"></i>
-                                    <span class="text-xs text-gray-300">Garantie Qualité</span>
-                                </li>
-                                <li class="flex items-center gap-3 bg-white/5 p-3 rounded-sm">
-                                    <i data-lucide="box" class="text-brand-gold w-4 h-4"></i>
-                                    <span class="text-xs text-gray-300">Emballage Sécurisé</span>
-                                </li>
-                                <li class="flex items-center gap-3 bg-white/5 p-3 rounded-sm">
-                                    <i data-lucide="truck" class="text-brand-gold w-4 h-4"></i>
-                                    <span class="text-xs text-gray-300">Livraison Rapide</span>
-                                </li>
-                            </ul>
-                        </div>
+                        <img id="detail-main-image" src="" class="w-full aspect-square object-cover rounded-sm border border-white/10">
+                        <h2 id="detail-title" class="text-3xl text-white mt-8 font-serif"></h2>
+                        <p id="detail-desc" class="text-gray-400 mt-4 leading-relaxed"></p>
                     </div>
-
                     <div class="lg:col-span-5">
-                        <div class="bg-brand-black p-8 rounded-sm border border-brand-gold/20 shadow-glow h-fit sticky top-24">
-                            <div class="text-center mb-6">
-                                <h2 class="text-2xl font-serif text-white">Finaliser la Commande</h2>
-                                <p class="text-xs text-gray-500 mt-2">Remplissez le formulaire ci-dessous. Paiement à la livraison.</p>
-                            </div>
-                            
-                            <form id="order-form" onsubmit="app.submitOrder(event)" class="space-y-5">
-                                <input type="hidden" id="product-name" name="product_name">
-                                <input type="hidden" id="final-price" name="final_price">
-
-                                <div class="grid grid-cols-2 gap-4">
-                                    <div>
-                                        <label class="text-[10px] text-brand-gold uppercase tracking-widest mb-1 block">Nom</label>
-                                        <input type="text" name="nom" required class="form-input" placeholder="Votre nom">
-                                    </div>
-                                    <div>
-                                        <label class="text-[10px] text-brand-gold uppercase tracking-widest mb-1 block">Prénom</label>
-                                        <input type="text" name="prenom" required class="form-input" placeholder="Votre prénom">
-                                    </div>
+                        <div class="bg-brand-black p-8 rounded-sm border border-brand-gold/20 shadow-glow sticky top-24">
+                            <h2 class="text-xl font-serif text-white mb-6 text-center">Passer commande</h2>
+                            <form id="order-form" onsubmit="app.submitOrder(event)" class="space-y-4">
+                                <input type="hidden" id="order-prod-name">
+                                <input type="hidden" id="order-prod-price">
+                                <input type="text" id="order-nom" required class="form-input" placeholder="Votre Nom">
+                                <input type="tel" id="order-tel" required class="form-input" placeholder="Numéro de téléphone">
+                                <textarea id="order-addr" required class="form-input h-24 resize-none" placeholder="Adresse de livraison"></textarea>
+                                <div class="flex justify-between text-white font-serif py-4 border-t border-white/10 mt-2">
+                                    <span>Total</span><span id="order-total" class="text-brand-gold text-xl"></span>
                                 </div>
-
-                                <div>
-                                    <label class="text-[10px] text-brand-gold uppercase tracking-widest mb-1 block">Téléphone</label>
-                                    <input type="tel" name="telephone" required class="form-input" placeholder="Numéro joignable (+216...)">
-                                </div>
-
-                                <div class="grid grid-cols-2 gap-4">
-                                    <div>
-                                        <label class="text-[10px] text-brand-gold uppercase tracking-widest mb-1 block">Ville</label>
-                                        <input type="text" name="ville" required class="form-input" placeholder="Ville">
-                                    </div>
-                                    <div>
-                                        <label class="text-[10px] text-brand-gold uppercase tracking-widest mb-1 block">Code Postal</label>
-                                        <input type="text" name="zip" required class="form-input" placeholder="Code">
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <label class="text-[10px] text-brand-gold uppercase tracking-widest mb-1 block">Adresse de Livraison</label>
-                                    <textarea name="adresse" required class="form-input h-24 resize-none" placeholder="Adresse complète..."></textarea>
-                                </div>
-
-                                <div class="bg-[#151515] p-5 rounded-sm border border-white/5 mt-4">
-                                    <div class="flex justify-between text-sm text-gray-400 mb-2">
-                                        <span>Produit</span>
-                                        <span id="summary-price" class="text-white">0 DTN</span>
-                                    </div>
-                                    <div class="flex justify-between text-sm text-gray-400 mb-3">
-                                        <span>Livraison Sécurisée</span>
-                                        <span class="text-brand-gold">+ 7.00 DTN</span>
-                                    </div>
-                                    <div class="border-t border-white/10 pt-3 flex justify-between items-end">
-                                        <span class="text-sm font-serif text-white">Total à Payer</span>
-                                        <span id="summary-total" class="text-2xl font-serif text-brand-gold">0 DTN</span>
-                                    </div>
-                                </div>
-
-                                <button type="submit" id="submit-btn" class="btn-gold w-full py-4 text-sm mt-2 shadow-lg rounded-sm">
-                                    CONFIRMER MA COMMANDE
-                                </button>
-                                
-                                <p class="text-[10px] text-center text-gray-600 flex justify-center gap-2 items-center mt-2">
-                                    <i data-lucide="lock" class="w-3 h-3"></i> Informations cryptées et sécurisées
-                                </p>
+                                <button type="submit" id="btn-submit-order" class="btn-gold w-full py-4 text-sm">CONFIRMER LA COMMANDE</button>
                             </form>
-                            
-                            <div id="success-message" class="hidden text-center py-10">
-                                <div class="w-20 h-20 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-6 border border-green-500/30">
-                                    <i data-lucide="check" class="text-green-500 w-10 h-10"></i>
-                                </div>
-                                <h3 class="text-2xl font-serif text-white mb-2">Félicitations !</h3>
-                                <p class="text-gray-400 text-sm mb-6">Votre commande a été enregistrée avec succès.<br>Notre service client vous contactera sous 24h.</p>
-                                <button onclick="app.showHome()" class="text-brand-gold underline text-xs tracking-widest hover:text-white transition">RETOUR À L'ACCUEIL</button>
+                            <div id="success-msg" class="hidden text-center py-10">
+                                <i data-lucide="check-circle" class="w-12 h-12 text-brand-gold mx-auto mb-4"></i>
+                                <h3 class="text-white text-xl">Merci !</h3>
+                                <p class="text-gray-500 text-sm mt-2">Nous vous appellerons pour confirmer.</p>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <div id="admin-view" class="hidden fade-in min-h-screen bg-[#050505] pt-10 px-6 pb-20">
+            <div class="max-w-5xl mx-auto">
+                <div class="flex justify-between items-center mb-10 border-b border-white/10 pb-4">
+                    <h2 class="text-2xl font-serif text-brand-gold">Administration</h2>
+                    <button onclick="adminApp.logout()" class="text-xs text-red-500 hover:text-red-400">Déconnexion</button>
+                </div>
+
+                <div id="admin-login" class="max-w-sm mx-auto mt-20">
+                    <form onsubmit="adminApp.login(event)" class="space-y-4">
+                        <input type="text" id="adm-user" placeholder="User" class="form-input">
+                        <input type="password" id="adm-pass" placeholder="Password" class="form-input">
+                        <button type="submit" id="btn-login" class="btn-gold w-full py-3">ENTRER</button>
+                        <p id="login-err" class="text-red-500 text-xs text-center hidden">Erreur</p>
+                    </form>
+                </div>
+
+                <div id="admin-dashboard" class="hidden">
+                    <div class="flex gap-4 mb-8 border-b border-white/10">
+                        <div onclick="adminApp.switchTab('products')" id="tab-products" class="tab-btn active">Produits</div>
+                        <div onclick="adminApp.switchTab('orders')" id="tab-orders" class="tab-btn">Commandes</div>
+                    </div>
+
+                    <div id="view-products">
+                        <button onclick="adminApp.openModal()" class="mb-6 bg-white/10 text-brand-gold px-4 py-2 rounded text-xs font-bold border border-brand-gold/20 flex items-center gap-2">
+                            <i data-lucide="plus" class="w-4 h-4"></i> NOUVEAU PRODUIT
+                        </button>
+                        <div id="admin-list" class="space-y-2"></div>
+                    </div>
+
+                    <div id="view-orders" class="hidden">
+                        <div class="bg-[#141414] rounded border border-white/10 overflow-hidden">
+                            <table class="order-table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Client</th>
+                                        <th>Tel</th>
+                                        <th>Produit</th>
+                                        <th>Prix</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="orders-list">
+                                    </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="prod-modal" class="hidden modal p-4">
+            <div class="bg-[#1a1a1a] border border-white/10 w-full max-w-lg p-6 rounded relative">
+                <button onclick="adminApp.closeModal()" class="absolute top-4 right-4 text-white"><i data-lucide="x"></i></button>
+                <h3 class="text-white font-serif mb-4">Éditer Produit</h3>
+                <form onsubmit="adminApp.saveProduct(event)" class="space-y-3">
+                    <input type="hidden" id="edit-id">
+                    <input type="text" id="edit-title" class="form-input" placeholder="Titre" required>
+                    <input type="number" id="edit-price" class="form-input" placeholder="Prix" required>
+                    <textarea id="edit-desc" class="form-input h-20" placeholder="Description"></textarea>
+                    <input type="text" id="edit-img1" class="form-input" placeholder="Image URL 1" required>
+                    <input type="text" id="edit-img2" class="form-input" placeholder="Image URL 2 (Optionnel)">
+                    <button type="submit" id="btn-save" class="btn-gold w-full py-3 mt-2">ENREGISTRER</button>
+                </form>
             </div>
         </div>
 
     </main>
 
-    <footer class="bg-black py-16 border-t border-white/5 text-center mt-auto relative z-10">
-        <div class="max-w-6xl mx-auto px-6">
-            
-            <div class="flex justify-center items-center gap-3 mb-12 opacity-90">
-                <img src="yass.png" class="h-10 grayscale brightness-125">
-                <span class="text-xl font-serif text-white tracking-[0.3em]">REFLECTA</span>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-8 mb-12">
-                
-                <div class="flex flex-col items-center justify-start gap-4">
-                    <h4 class="text-brand-gold uppercase tracking-widest text-[10px] font-bold mb-2">Service Client & Support</h4>
-                    
-                    <a href="tel:52905386" class="flex items-center gap-3 text-gray-400 hover:text-white transition-colors group">
-                        <div class="p-2 bg-white/5 rounded-full group-hover:bg-brand-gold group-hover:text-black transition-all">
-                            <i data-lucide="phone" class="w-4 h-4"></i>
-                        </div>
-                        <span class="text-sm tracking-wide">52 905 386</span>
-                    </a>
-                    
-                    <a href="mailto:reflectatn@gmail.com" class="flex items-center gap-3 text-gray-400 hover:text-white transition-colors group">
-                        <div class="p-2 bg-white/5 rounded-full group-hover:bg-brand-gold group-hover:text-black transition-all">
-                            <i data-lucide="mail" class="w-4 h-4"></i>
-                        </div>
-                        <span class="text-sm tracking-wide">reflectatn@gmail.com</span>
-                    </a>
-                </div>
-
-                <div class="flex flex-col items-center justify-start gap-4">
-                    <h4 class="text-brand-gold uppercase tracking-widest text-[10px] font-bold mb-2">Rejoignez la Communauté</h4>
-                    
-                    <div class="flex gap-6 items-center">
-                        <a href="https://www.tiktok.com/@reflecta_tn" target="_blank" class="social-link bg-white/5 p-3 rounded-full hover:bg-white/10" aria-label="TikTok">
-                            <svg class="social-icon text-gray-400" viewBox="0 0 24 24">
-                                <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
-                            </svg>
-                        </a>
-
-                        <a href="https://instagram.com/reflecta_tn" target="_blank" class="social-link bg-white/5 p-3 rounded-full hover:bg-white/10" aria-label="Instagram">
-                            <svg class="social-icon text-gray-400" viewBox="0 0 24 24">
-                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                            </svg>
-                        </a>
-
-                        <a href="https://www.facebook.com/share/1RDzz9d2qJ/?mibextid=wwXIfr" target="_blank" class="social-link bg-white/5 p-3 rounded-full hover:bg-white/10" aria-label="Facebook">
-                            <svg class="social-icon text-gray-400" viewBox="0 0 24 24">
-                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                            </svg>
-                        </a>
-                    </div>
-                    <span class="text-gray-500 text-xs mt-1">@reflecta_tn</span>
-                </div>
-            </div>
-
-            <div class="border-t border-white/10 pt-8">
-                <p class="text-gray-600 text-[10px] uppercase tracking-widest">© 2026 Reflecta Design. Tous droits réservés.</p>
-            </div>
-        </div>
-    </footer>
+    <footer class="bg-black py-6 text-center text-gray-700 text-[10px] uppercase border-t border-white/5">© 2026 Reflecta.</footer>
 
     <script>
-        lucide.createIcons();
+        // --- CONFIGURATION ---
+        const API_URL = "VOTRE_URL_GOOGLE_SCRIPT_ICI"; // <--- COLLEZ L'URL ICI !
 
-        // ⚠️ REMPLACEZ PAR VOTRE URL GOOGLE APPS SCRIPT
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzGNAPF0QjUdXXRuPvqb0I0_e8rKUwigQIqb3j12lCH8wm96MY-LZGmCQq7sQv7hVQ/exec"; 
+        let allProducts = [];
+        let authToken = localStorage.getItem('adm_tok');
 
-        const products = {
-            'square': { 
-                title: "Table Infini Carrée", 
-                price: 189, 
-                images: [
-                    "img3.jpeg",
-                    "img1.jpeg",
-                    "img2.jpeg",
-                    "img4.jpeg"
-                ],
-                desc: "L'apothéose du design intérieur moderne. Cette table carrée de 50x50 cm est une véritable œuvre d'art lumineuse. Son système LED crée une profondeur abyssale captivante, transformant votre salon en une galerie d'art contemporain." 
-            },
-            'rect': { 
-                title: "Table Infini Rectangulaire", 
-                price: 219, 
-                images: [
-                    "rectangle.png",
-                    "rectangle.png"
-                ], 
-                desc: "Une élégance architecturale allongée. Avec ses dimensions de 60x30 cm, ce modèle offre une vue panoramique sur l'infini. Idéale comme table d'appoint ou console, elle apporte une touche de magie sophistiquée à votre espace." 
-            }
-        };
+        async function api(data) {
+            return fetch(API_URL, { method: "POST", body: JSON.stringify(data) }).then(r => r.json());
+        }
 
         const app = {
-            homeView: document.getElementById('home-view'),
-            productView: document.getElementById('product-view'),
-            successMessage: document.getElementById('success-message'),
-            form: document.getElementById('order-form'),
-            intervals: {},
-
-            startSlide: function(productId, imgId) {
-                if (this.intervals[productId]) clearInterval(this.intervals[productId]);
-                
-                const imgTag = document.getElementById(imgId);
-                const images = products[productId].images;
-                let i = 0;
-
-                this.intervals[productId] = setInterval(() => {
-                    i = (i + 1) % images.length;
-                    imgTag.src = images[i];
-                }, 800); 
+            init: function() {
+                fetch(API_URL).then(r => r.json()).then(data => {
+                    allProducts = data;
+                    this.renderGrid();
+                }).catch(e => console.error(e));
+                lucide.createIcons();
             },
-
-            stopSlide: function(productId, imgId) {
-                if (this.intervals[productId]) {
-                    clearInterval(this.intervals[productId]);
-                    this.intervals[productId] = null;
-                }
-                const imgTag = document.getElementById(imgId);
-                imgTag.src = products[productId].images[0];
+            renderGrid: function() {
+                const grid = document.getElementById('products-grid');
+                grid.innerHTML = '';
+                if(allProducts.length === 0) grid.innerHTML = '<p>Aucun produit.</p>';
+                allProducts.forEach(p => {
+                    const img = (p.images && p.images[0]) ? p.images[0] : '';
+                    grid.innerHTML += `
+                    <div onclick="app.showProduct('${p.id}')" class="group bg-brand-black border border-white/5 cursor-pointer hover:border-brand-gold/50 transition-all">
+                        <div class="h-80 overflow-hidden relative">
+                            <img src="${img}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        </div>
+                        <div class="p-6 text-center">
+                            <h3 class="text-white text-xl font-serif">${p.title}</h3>
+                            <span class="text-brand-gold">${p.price} DTN</span>
+                        </div>
+                    </div>`;
+                });
             },
-
-            showHome: function() {
-                window.scrollTo(0, 0);
-                this.productView.classList.add('hidden');
-                this.homeView.classList.remove('hidden');
-            },
-
             showProduct: function(id) {
-                this.stopSlide('square', 'img-preview-square');
-                this.stopSlide('rect', 'img-preview-rect');
-
-                const p = products[id];
-                const shipping = 7;
-                const total = p.price + shipping;
-
+                const p = allProducts.find(x => String(x.id) === String(id));
+                if(!p) return;
                 document.getElementById('detail-title').innerText = p.title;
                 document.getElementById('detail-desc').innerText = p.desc;
-                document.getElementById('summary-price').innerText = p.price + ".00 DTN";
-                document.getElementById('summary-total').innerText = total + ".00 DTN";
-
-                const mainImage = document.getElementById('detail-main-image');
-                mainImage.src = p.images[0];
-                const thumbsContainer = document.getElementById('thumbnails-container');
-                thumbsContainer.innerHTML = ''; 
-
-                p.images.forEach((imgSrc, index) => {
-                    const thumb = document.createElement('img');
-                    thumb.src = imgSrc;
-                    thumb.className = `w-full h-16 object-cover rounded-sm cursor-pointer border border-white/10 hover:border-brand-gold transition-all ${index === 0 ? 'thumb-active' : ''}`;
-                    thumb.onclick = function() {
-                        mainImage.style.opacity = '0.5';
-                        setTimeout(() => {
-                            mainImage.src = imgSrc;
-                            mainImage.style.opacity = '1';
-                        }, 200);
-                        
-                        Array.from(thumbsContainer.children).forEach(c => c.classList.remove('thumb-active'));
-                        thumb.classList.add('thumb-active');
-                    };
-                    thumbsContainer.appendChild(thumb);
-                });
-
-                document.getElementById('product-name').value = p.title;
-                document.getElementById('final-price').value = total + " DTN";
-
-                this.form.reset();
-                this.form.classList.remove('hidden');
-                this.successMessage.classList.add('hidden');
-
-                this.homeView.classList.add('hidden');
-                this.productView.classList.remove('hidden');
-                window.scrollTo(0, 0);
-
-                setTimeout(() => lucide.createIcons(), 50);
+                document.getElementById('detail-main-image').src = p.images[0] || '';
+                document.getElementById('order-prod-name').value = p.title;
+                document.getElementById('order-prod-price').value = p.price;
+                document.getElementById('order-total').innerText = p.price + " DTN";
+                
+                document.getElementById('home-view').classList.add('hidden');
+                document.getElementById('product-view').classList.remove('hidden');
+                window.scrollTo(0,0);
             },
-
+            showHome: function() {
+                document.getElementById('product-view').classList.add('hidden');
+                document.getElementById('admin-view').classList.add('hidden');
+                document.getElementById('home-view').classList.remove('hidden');
+                window.scrollTo(0,0);
+            },
             submitOrder: function(e) {
                 e.preventDefault();
-                const btn = document.getElementById('submit-btn');
-                const originalText = btn.innerText;
-                btn.innerHTML = '<span class="loader"></span> TRAITEMENT...';
-                btn.disabled = true;
+                const btn = document.getElementById('btn-submit-order');
+                btn.innerText = "ENVOI EN COURS...";
+                
+                const data = {
+                    action: "order",
+                    produit: document.getElementById('order-prod-name').value,
+                    prix: document.getElementById('order-prod-price').value,
+                    nom: document.getElementById('order-nom').value,
+                    tel: document.getElementById('order-tel').value,
+                    adresse: document.getElementById('order-addr').value
+                };
 
-                const formData = new FormData(this.form);
-                fetch(GOOGLE_SCRIPT_URL, { method: 'POST', body: formData })
-                .then(response => {
-                    this.form.classList.add('hidden');
-                    this.successMessage.classList.remove('hidden');
-                    this.successMessage.scrollIntoView({behavior: 'smooth'});
-                })
-                .catch(error => {
-                    alert("Une erreur est survenue. Veuillez vérifier votre connexion.");
-                    btn.innerText = originalText;
-                    btn.disabled = false;
+                api(data).then(res => {
+                    if(res.status === "success") {
+                        document.getElementById('order-form').classList.add('hidden');
+                        document.getElementById('success-msg').classList.remove('hidden');
+                    } else {
+                        alert("Erreur");
+                        btn.innerText = "RÉESSAYER";
+                    }
                 });
             }
         };
+
+        const adminApp = {
+            toggleAdmin: function() {
+                document.getElementById('home-view').classList.add('hidden');
+                document.getElementById('product-view').classList.add('hidden');
+                document.getElementById('admin-view').classList.remove('hidden');
+                
+                if(authToken === "logged_in_secure_token") {
+                    document.getElementById('admin-login').classList.add('hidden');
+                    document.getElementById('admin-dashboard').classList.remove('hidden');
+                    this.loadProducts();
+                } else {
+                    document.getElementById('admin-login').classList.remove('hidden');
+                }
+            },
+            login: function(e) {
+                e.preventDefault();
+                const u = document.getElementById('adm-user').value;
+                const p = document.getElementById('adm-pass').value;
+                document.getElementById('btn-login').innerText = "...";
+                
+                api({ action: "login", username: u, password: p }).then(res => {
+                    if(res.status === "success") {
+                        authToken = res.token;
+                        localStorage.setItem('adm_tok', authToken);
+                        this.toggleAdmin();
+                    } else {
+                        document.getElementById('login-err').classList.remove('hidden');
+                    }
+                    document.getElementById('btn-login').innerText = "ENTRER";
+                });
+            },
+            logout: function() {
+                authToken = null;
+                localStorage.removeItem('adm_tok');
+                app.showHome();
+            },
+            switchTab: function(tab) {
+                if(tab === 'products') {
+                    document.getElementById('view-products').classList.remove('hidden');
+                    document.getElementById('view-orders').classList.add('hidden');
+                    document.getElementById('tab-products').classList.add('active');
+                    document.getElementById('tab-orders').classList.remove('active');
+                    this.loadProducts();
+                } else {
+                    document.getElementById('view-products').classList.add('hidden');
+                    document.getElementById('view-orders').classList.remove('hidden');
+                    document.getElementById('tab-products').classList.remove('active');
+                    document.getElementById('tab-orders').classList.add('active');
+                    this.loadOrders();
+                }
+            },
+            loadProducts: function() {
+                const list = document.getElementById('admin-list');
+                list.innerHTML = '';
+                allProducts.forEach(p => {
+                    list.innerHTML += `
+                    <div class="admin-card flex justify-between items-center">
+                        <div class="text-white font-serif">${p.title} <span class="text-brand-gold ml-2">${p.price} DTN</span></div>
+                        <div class="flex gap-2">
+                            <button onclick="adminApp.openModal('${p.id}')" class="text-blue-400 p-2"><i data-lucide="edit"></i></button>
+                            <button onclick="adminApp.deleteP('${p.id}')" class="text-red-500 p-2"><i data-lucide="trash"></i></button>
+                        </div>
+                    </div>`;
+                });
+                lucide.createIcons();
+            },
+            loadOrders: function() {
+                const tbody = document.getElementById('orders-list');
+                tbody.innerHTML = '<tr><td colspan="5" class="text-center py-4">Chargement...</td></tr>';
+                
+                api({ action: "getOrders", token: authToken }).then(res => {
+                    tbody.innerHTML = '';
+                    if(!res.orders || res.orders.length === 0) {
+                        tbody.innerHTML = '<tr><td colspan="5" class="text-center py-4">Aucune commande.</td></tr>';
+                        return;
+                    }
+                    res.orders.forEach(o => {
+                        tbody.innerHTML += `
+                        <tr>
+                            <td>${o[0]}</td>
+                            <td class="font-bold text-white">${o[1]}</td>
+                            <td>${o[2]}</td>
+                            <td>${o[4]}</td>
+                            <td class="text-brand-gold">${o[5]}</td>
+                        </tr>`;
+                    });
+                });
+            },
+            // Fonctions CRUD Produits
+            openModal: function(id=null) {
+                document.getElementById('prod-modal').classList.remove('hidden');
+                document.querySelector('#prod-modal form').reset();
+                document.getElementById('edit-id').value = "";
+                if(id) {
+                    const p = allProducts.find(x => String(x.id) === String(id));
+                    document.getElementById('edit-id').value = id;
+                    document.getElementById('edit-title').value = p.title;
+                    document.getElementById('edit-price').value = p.price;
+                    document.getElementById('edit-desc').value = p.desc;
+                    document.getElementById('edit-img1').value = p.images[0]||'';
+                    document.getElementById('edit-img2').value = p.images[1]||'';
+                }
+            },
+            closeModal: () => document.getElementById('prod-modal').classList.add('hidden'),
+            saveProduct: function(e) {
+                e.preventDefault();
+                const btn = document.getElementById('btn-save');
+                btn.innerText = "...";
+                const data = {
+                    action: "saveProduct", token: authToken,
+                    id: document.getElementById('edit-id').value,
+                    title: document.getElementById('edit-title').value,
+                    price: document.getElementById('edit-price').value,
+                    desc: document.getElementById('edit-desc').value,
+                    image1: document.getElementById('edit-img1').value,
+                    image2: document.getElementById('edit-img2').value
+                };
+                api(data).then(res => {
+                    this.closeModal();
+                    app.init(); // Refresh data
+                    setTimeout(() => this.loadProducts(), 500);
+                    btn.innerText = "ENREGISTRER";
+                });
+            },
+            deleteP: function(id) {
+                if(confirm("Supprimer ?")) {
+                    api({ action: "deleteProduct", token: authToken, id: id }).then(() => {
+                        app.init(); setTimeout(() => this.loadProducts(), 500);
+                    });
+                }
+            }
+        };
+
+        app.init();
     </script>
 </body>
 </html>
-
-
-
-
-
